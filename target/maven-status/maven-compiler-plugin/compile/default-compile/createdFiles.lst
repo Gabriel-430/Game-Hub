@@ -1,0 +1,11 @@
+gamehub\controladores\PrincipalController.class
+gamehub\dto\videojuegoDTO.class
+gamehub\utils\JavaFXUtils.class
+gamehub\controladores\RegistrarVideojuegoController.class
+gamehub\controladores\BuscarVideojuegoController.class
+gamehub\dao\ConexionBD.class
+module-info.class
+gamehub\controladores\ListarVideojuegoController.class
+gamehub\dto\OpcionDTO.class
+gamehub\dao\videojuegoDAO.class
+gamehub\App.class
