@@ -7,24 +7,31 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConexionBD {
-    
+
     protected Connection connection;
 
     protected void conectar() throws SQLException {
-        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config/database.properties")) {
-            Properties prop = new Properties();
+
+        try (InputStream input = ConexionBD.class
+                .getResourceAsStream("/config/database.properties")) {
+
             if (input == null) {
-                throw new SQLException("No se encontró config/database.properties");
+                throw new SQLException("No se encontró database.properties");
             }
+
+            Properties prop = new Properties();
             prop.load(input);
-            Class.forName("com.mysql.cj.jdbc.Driver");
+
             connection = DriverManager.getConnection(
-                prop.getProperty("db.url"), 
-                prop.getProperty("db.user"), 
-                prop.getProperty("db.password")
-            );
+                    prop.getProperty("db.url"),
+                    prop.getProperty("db.user"),
+                    prop.getProperty("db.password"));
+
+            System.out.println("Conexión exitosa");
+
         } catch (Exception ex) {
-            throw new SQLException("Error al establecer la conexión: " + ex.getMessage());
+            ex.printStackTrace();
+            throw new SQLException("Error al conectar", ex);
         }
     }
 

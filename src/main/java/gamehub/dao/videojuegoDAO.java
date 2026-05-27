@@ -1,13 +1,14 @@
 package gamehub.dao;
 
-import gamehub.dto.OpcionDTO;
-import gamehub.dto.videojuegoDTO;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import gamehub.dto.OpcionDTO;
+import gamehub.dto.videojuegoDTO;
 
 public class videojuegoDAO extends ConexionBD {
 
@@ -57,10 +58,12 @@ public class videojuegoDAO extends ConexionBD {
                 resultado = true;
             }
         } catch (SQLException ex) {
-            if (this.connection != null) this.connection.rollback();
+            if (this.connection != null)
+                this.connection.rollback();
             throw ex;
         } finally {
-            if (this.connection != null) this.connection.setAutoCommit(true);
+            if (this.connection != null)
+                this.connection.setAutoCommit(true);
             this.desconectar();
         }
         return resultado;
@@ -84,12 +87,14 @@ public class videojuegoDAO extends ConexionBD {
                 psVid.setInt(8, dto.getIdVideojuego());
                 psVid.executeUpdate();
 
-                try (PreparedStatement delGen = connection.prepareStatement("DELETE FROM videojuego_genero WHERE id_videojuego=?")) {
+                try (PreparedStatement delGen = connection
+                        .prepareStatement("DELETE FROM videojuego_genero WHERE id_videojuego=?")) {
                     delGen.setInt(1, dto.getIdVideojuego());
                     delGen.executeUpdate();
                 }
 
-                try (PreparedStatement delPlat = connection.prepareStatement("DELETE FROM videojuego_plataforma WHERE id_videojuego=?")) {
+                try (PreparedStatement delPlat = connection
+                        .prepareStatement("DELETE FROM videojuego_plataforma WHERE id_videojuego=?")) {
                     delPlat.setInt(1, dto.getIdVideojuego());
                     delPlat.executeUpdate();
                 }
@@ -115,10 +120,12 @@ public class videojuegoDAO extends ConexionBD {
                 resultado = true;
             }
         } catch (SQLException ex) {
-            if (this.connection != null) this.connection.rollback();
+            if (this.connection != null)
+                this.connection.rollback();
             throw ex;
         } finally {
-            if (this.connection != null) this.connection.setAutoCommit(true);
+            if (this.connection != null)
+                this.connection.setAutoCommit(true);
             this.desconectar();
         }
         return resultado;
@@ -130,17 +137,20 @@ public class videojuegoDAO extends ConexionBD {
             this.conectar();
             this.connection.setAutoCommit(false);
 
-            try (PreparedStatement psGen = connection.prepareStatement("DELETE FROM videojuego_genero WHERE id_videojuego=?")) {
+            try (PreparedStatement psGen = connection
+                    .prepareStatement("DELETE FROM videojuego_genero WHERE id_videojuego=?")) {
                 psGen.setInt(1, dto.getIdVideojuego());
                 psGen.executeUpdate();
             }
 
-            try (PreparedStatement psPlat = connection.prepareStatement("DELETE FROM videojuego_plataforma WHERE id_videojuego=?")) {
+            try (PreparedStatement psPlat = connection
+                    .prepareStatement("DELETE FROM videojuego_plataforma WHERE id_videojuego=?")) {
                 psPlat.setInt(1, dto.getIdVideojuego());
                 psPlat.executeUpdate();
             }
 
-            try (PreparedStatement psVid = connection.prepareStatement("DELETE FROM videojuego WHERE id_videojuego=?")) {
+            try (PreparedStatement psVid = connection
+                    .prepareStatement("DELETE FROM videojuego WHERE id_videojuego=?")) {
                 psVid.setInt(1, dto.getIdVideojuego());
                 psVid.executeUpdate();
             }
@@ -148,10 +158,12 @@ public class videojuegoDAO extends ConexionBD {
             this.connection.commit();
             resultado = true;
         } catch (SQLException ex) {
-            if (this.connection != null) this.connection.rollback();
+            if (this.connection != null)
+                this.connection.rollback();
             throw ex;
         } finally {
-            if (this.connection != null) this.connection.setAutoCommit(true);
+            if (this.connection != null)
+                this.connection.setAutoCommit(true);
             this.desconectar();
         }
         return resultado;
@@ -160,17 +172,17 @@ public class videojuegoDAO extends ConexionBD {
     public List<videojuegoDTO> buscar(videojuegoDTO dtoParam) throws SQLException {
         List<videojuegoDTO> lista = new ArrayList<>();
         String sql = "SELECT v.id_videojuego, v.titulo, v.descripcion, v.fecha_lanzamiento_base, v.clasificacion_edades, v.precio_base, v.estado_disponibilidad_base, "
-                   + "p.id_publisher, p.nombre_comercial, "
-                   + "vg.id_genero, g.nombre AS genero_nombre, "
-                   + "vp.id_plataforma, pl.nombre AS plataforma_nombre, vp.precio_plataforma "
-                   + "FROM videojuego v "
-                   + "INNER JOIN publisher p ON v.id_publisher = p.id_publisher "
-                   + "LEFT JOIN videojuego_genero vg ON v.id_videojuego = vg.id_videojuego "
-                   + "LEFT JOIN genero g ON vg.id_genero = g.id_genero "
-                   + "LEFT JOIN videojuego_plataforma vp ON v.id_videojuego = vp.id_videojuego "
-                   + "LEFT JOIN plataforma pl ON vp.id_plataforma = pl.id_plataforma "
-                   + "WHERE v.titulo LIKE ? "
-                   + "GROUP BY v.id_videojuego";
+                + "p.id_publisher, p.nombre_comercial, "
+                + "vg.id_genero, g.nombre AS genero_nombre, "
+                + "vp.id_plataforma, pl.nombre AS plataforma_nombre, vp.precio_plataforma "
+                + "FROM videojuego v "
+                + "INNER JOIN publisher p ON v.id_publisher = p.id_publisher "
+                + "LEFT JOIN videojuego_genero vg ON v.id_videojuego = vg.id_videojuego "
+                + "LEFT JOIN genero g ON vg.id_genero = g.id_genero "
+                + "LEFT JOIN videojuego_plataforma vp ON v.id_videojuego = vp.id_videojuego "
+                + "LEFT JOIN plataforma pl ON vp.id_plataforma = pl.id_plataforma "
+                + "WHERE v.titulo LIKE ? ";
+
         try {
             this.conectar();
             try (PreparedStatement ps = connection.prepareStatement(sql)) {
@@ -190,20 +202,20 @@ public class videojuegoDAO extends ConexionBD {
     public List<videojuegoDTO> listarCompleto() throws SQLException {
         List<videojuegoDTO> lista = new ArrayList<>();
         String sql = "SELECT v.id_videojuego, v.titulo, v.descripcion, v.fecha_lanzamiento_base, v.clasificacion_edades, v.precio_base, v.estado_disponibilidad_base, "
-                   + "p.id_publisher, p.nombre_comercial, "
-                   + "vg.id_genero, g.nombre AS genero_nombre, "
-                   + "vp.id_plataforma, pl.nombre AS plataforma_nombre, vp.precio_plataforma "
-                   + "FROM videojuego v "
-                   + "INNER JOIN publisher p ON v.id_publisher = p.id_publisher "
-                   + "LEFT JOIN videojuego_genero vg ON v.id_videojuego = vg.id_videojuego "
-                   + "LEFT JOIN genero g ON vg.id_genero = g.id_genero "
-                   + "LEFT JOIN videojuego_plataforma vp ON v.id_videojuego = vp.id_videojuego "
-                   + "LEFT JOIN plataforma pl ON vp.id_plataforma = pl.id_plataforma "
-                   + "GROUP BY v.id_videojuego";
+                + "p.id_publisher, p.nombre_comercial, "
+                + "vg.id_genero, g.nombre AS genero_nombre, "
+                + "vp.id_plataforma, pl.nombre AS plataforma_nombre, vp.precio_plataforma "
+                + "FROM videojuego v "
+                + "INNER JOIN publisher p ON v.id_publisher = p.id_publisher "
+                + "LEFT JOIN videojuego_genero vg ON v.id_videojuego = vg.id_videojuego "
+                + "LEFT JOIN genero g ON vg.id_genero = g.id_genero "
+                + "LEFT JOIN videojuego_plataforma vp ON v.id_videojuego = vp.id_videojuego "
+                + "LEFT JOIN plataforma pl ON vp.id_plataforma = pl.id_plataforma ";
+
         try {
             this.conectar();
             try (PreparedStatement ps = connection.prepareStatement(sql);
-                 ResultSet rs = ps.executeQuery()) {
+                    ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     lista.add(mapearResultado(rs));
                 }
@@ -239,7 +251,7 @@ public class videojuegoDAO extends ConexionBD {
         try {
             this.conectar();
             try (PreparedStatement ps = connection.prepareStatement(sql);
-                 ResultSet rs = ps.executeQuery()) {
+                    ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     lista.add(new OpcionDTO(rs.getInt(1), rs.getString(2)));
                 }
