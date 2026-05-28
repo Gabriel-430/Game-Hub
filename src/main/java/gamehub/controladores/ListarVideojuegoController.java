@@ -42,32 +42,46 @@ public class ListarVideojuegoController implements Initializable {
     }
 
     @FXML
+    private void actionRefrescar() {
+        cargarDatos();
+        JavaFXUtils.mostrarMensaje("Tabla Actualizada", "Los registros han sido recargados desde la base de datos.");
+    }
+
+    @FXML
     private void actionActualizar() {
         videojuegoDTO seleccionado = tbl_datos.getSelectionModel().getSelectedItem();
+        
         if (seleccionado != null) {
             App.setMetadato("videojuego_editar", seleccionado);
-            try { App.setRoot("registrarVideojuego"); } catch (Exception e) { e.printStackTrace(); }
+            try { 
+                App.setRoot("actualizarVideojuego"); 
+            } catch (Exception e) { 
+                e.printStackTrace(); 
+            }
         } else {
-            JavaFXUtils.mostrarAdvertencia("Aviso", "Seleccione un videojuego para actualizar.");
+            JavaFXUtils.mostrarAdvertencia("Seleccion requerida", "Por favor, selecciona un videojuego de la tabla para actualizar.");
         }
     }
 
     @FXML
     private void actionEliminar() {
         videojuegoDTO seleccionado = tbl_datos.getSelectionModel().getSelectedItem();
+        
         if (seleccionado != null) {
-            if (JavaFXUtils.mostrarConfirmacion("Eliminar", "Â¿Eliminar " + seleccionado.getTitulo() + "?")) {
+            if (JavaFXUtils.mostrarConfirmacion("Confirmar Eliminacion", "Seguro que deseas eliminar el videojuego: " + seleccionado.getTitulo() + "?")) {
                 try {
                     if (dao.eliminar(seleccionado)) {
-                        JavaFXUtils.mostrarMensaje("Ã‰xito", "Videojuego eliminado.");
+                        JavaFXUtils.mostrarMensaje("Exito", "El videojuego ha sido eliminado correctamente.");
                         cargarDatos();
+                    } else {
+                        JavaFXUtils.mostrarError("Error", "No se pudo eliminar el registro en la base de datos.");
                     }
                 } catch (SQLException ex) {
-                    JavaFXUtils.mostrarError("Error", "No se pudo eliminar por dependencias: " + ex.getMessage());
+                    JavaFXUtils.mostrarError("Error de integridad", "No se puede eliminar el videojuego porque esta asociado a otros registros (ej. Ordenes o Compras).");
                 }
             }
         } else {
-            JavaFXUtils.mostrarAdvertencia("Aviso", "Seleccione un videojuego para eliminar.");
+            JavaFXUtils.mostrarAdvertencia("Seleccion requerida", "Por favor, selecciona un videojuego de la tabla para eliminar.");
         }
     }
 

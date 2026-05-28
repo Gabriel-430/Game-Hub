@@ -1,8 +1,9 @@
 package gamehub.controladores;
 
-import javafx.fxml.FXML;
 import gamehub.App;
+import gamehub.utils.JavaFXUtils;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 
 public class PrincipalController {
 
@@ -21,7 +22,22 @@ public class PrincipalController {
     private void actionBuscar() {
         navegar("buscarVideojuego");
     }
-    
+
+    @FXML
+    private void actionCompras() {
+        navegar("compras");
+    }
+
+    @FXML
+    private void actionSuscripciones() {
+        navegar("suscripciones");
+    }
+
+    @FXML
+    private void actionReportes() {
+        navegar("reportes");
+    }
+
     @FXML
     private void actionSalir() {
         Platform.exit();
@@ -31,7 +47,8 @@ public class PrincipalController {
         try {
             App.setRoot(vista);
         } catch (Exception e) {
-            e.printStackTrace();
+            JavaFXUtils.mostrarAdvertencia("Módulo en Construcció",
+                    "La vista '" + vista + ".fxml' aún no ha sido implementada.");
         }
     }
 }

@@ -1,10 +1,11 @@
 package gamehub.utils;
 
 import java.util.Optional;
+
+import gamehub.App;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import gamehub.App;
 
 public class JavaFXUtils {
 

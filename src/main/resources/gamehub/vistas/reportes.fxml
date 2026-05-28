@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox alignment="CENTER" spacing="15.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gamehub.controladores.ReportesController">
+    <padding><Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/></padding>
+    <Label styleClass="lbl-titulo" text="Modulo de Reportes DB" />
+    
+    <VBox spacing="10" alignment="CENTER" style="-fx-border-color: rgba(255,255,255,0.2); -fx-border-radius: 10; -fx-padding: 15;">
+        <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Reporte: Total Gastado por Usuario"/>
+        <HBox spacing="10" alignment="CENTER">
+            <Label text="ID Usuario:"/> <TextField fx:id="txt_usuario" prefWidth="100"/>
+            <Label text="Inicio:"/> <DatePicker fx:id="dp_inicio" prefWidth="110"/>
+            <Label text="Fin:"/> <DatePicker fx:id="dp_fin" prefWidth="110"/>
+        </HBox>
+        <Button styleClass="btn-accion" onAction="#actionTotalGastado" text="Calcular Gasto" />
+    </VBox>
+
+    <VBox spacing="10" alignment="CENTER" style="-fx-border-color: rgba(255,255,255,0.2); -fx-border-radius: 10; -fx-padding: 15;">
+        <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="Reporte: Ventas de Videojuego por Mes"/>
+        <HBox spacing="10" alignment="CENTER">
+            <Label text="ID Videojuego:"/> <TextField fx:id="txt_idVid" prefWidth="80"/>
+            <Label text="Anio:"/> <TextField fx:id="txt_anio" prefWidth="70"/>
+            <Label text="Mes (1-12):"/> <TextField fx:id="txt_mes" prefWidth="50"/>
+        </HBox>
+        <Button styleClass="btn-accion" onAction="#actionVentasMes" text="Calcular Unidades Vendidas" />
+    </VBox>
+
+    <Button styleClass="btn-cancelar" onAction="#actionRegresar" text="Regresar al Menu" />
+</VBox>

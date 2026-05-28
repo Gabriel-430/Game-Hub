@@ -5,12 +5,24 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gamehub.controladores.PrincipalController">
-    <padding><Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/></padding>
+    <padding><Insets bottom="30.0" left="30.0" right="30.0" top="30.0"/></padding>
     <children>
-        <Label styleClass="lbl-titulo" text="GameHub - Gestión de Videojuegos" />
-        <Button styleClass="btn-principal" onAction="#actionRegistrar" text="Registrar / Actualizar Videojuego" />
-        <Button styleClass="btn-principal" onAction="#actionBuscar" text="Buscar Videojuego" />
-        <Button styleClass="btn-principal" onAction="#actionListar" text="Listado General (CRUD)" />
-        <Button styleClass="btn-cancelar" prefWidth="350" onAction="#actionSalir" text="Salir" />
+        <Label styleClass="lbl-titulo" text="GameHub - Menú Principal" />
+
+        <VBox alignment="CENTER" spacing="10.0" style="-fx-border-color: rgba(255,255,255,0.2); -fx-border-radius: 10; -fx-padding: 15;">
+            <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" text="Gestión de Videojuegos"/>
+            <Button styleClass="btn-principal" onAction="#actionRegistrar" prefWidth="350" text="Registrar" />
+            <Button styleClass="btn-principal" onAction="#actionListar" prefWidth="350" text="Listar" />
+            <Button styleClass="btn-principal" onAction="#actionBuscar" prefWidth="350" text="Buscar" />
+        </VBox>
+
+        <VBox alignment="CENTER" spacing="10.0" style="-fx-border-color: rgba(255,255,255,0.2); -fx-border-radius: 10; -fx-padding: 15;">
+            <Label style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;" text="Operaciones y Finanzas"/>
+            <Button styleClass="btn-accion" onAction="#actionCompras" prefWidth="350" text="Compras" />
+            <Button styleClass="btn-accion" onAction="#actionSuscripciones" prefWidth="350" text="Suscripciones" />
+            <Button styleClass="btn-accion" onAction="#actionReportes" prefWidth="350" text="Reportes" />
+        </VBox>
+
+        <Button styleClass="btn-cancelar" onAction="#actionSalir" prefWidth="350" text="Salir del Sistema" />
     </children>
 </VBox>
